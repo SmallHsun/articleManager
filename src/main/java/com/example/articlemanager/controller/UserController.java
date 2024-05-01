@@ -1,14 +1,18 @@
 package com.example.articlemanager.controller;
 
-import com.example.articlemanager.utils.Md5Util;
-import jakarta.validation.constraints.Pattern;
 import com.example.articlemanager.pojo.Result;
 import com.example.articlemanager.pojo.User;
 import com.example.articlemanager.sevice.impl.UserService;
+import com.example.articlemanager.utils.JwtUtil;
+import com.example.articlemanager.utils.Md5Util;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -41,7 +45,11 @@ public class UserController {
             return Result.error("用戶名錯誤");
         }
         if(Md5Util.getMD5String(password).equals(loginUser.getPassword())){
-            return Result.success("jwt Token");
+            Map<String,Object> claims = new HashMap<>();
+            claims.put("id",loginUser.getId());
+            claims.put("username",loginUser.getUsername());
+            String token = JwtUtil.genToken(claims);
+            return Result.success(token);
         }
         return Result.error("密碼錯誤");
     }
