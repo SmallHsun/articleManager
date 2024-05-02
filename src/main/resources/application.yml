@@ -10,3 +10,7 @@ spring:
     security:
       jwt:
         expiration: 86400000
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true  #駝峰命名與下畫線命名的自動轉換
