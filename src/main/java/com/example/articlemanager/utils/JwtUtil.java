@@ -10,7 +10,7 @@ public class JwtUtil {
 
     private static final String KEY = "itheima";
 
-    //接收业务数据,生成token并返回
+	//接收业务数据,生成token并返回
     public static String genToken(Map<String, Object> claims) {
         return JWT.create()
                 .withClaim("claims", claims)
@@ -19,7 +19,8 @@ public class JwtUtil {
                 .sign(Algorithm.HMAC256(KEY));
     }
 
-    //接收token,验证token,并返回业务数据
+
+	//接收token,验证token,并返回业务数据
     public static Map<String, Object> parseToken(String token) {
         return JWT.require(Algorithm.HMAC256(KEY))
                 .build()
@@ -27,5 +28,4 @@ public class JwtUtil {
                 .getClaim("claims")
                 .asMap();
     }
-
 }
