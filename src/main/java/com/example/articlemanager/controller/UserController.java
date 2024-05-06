@@ -41,7 +41,6 @@ public class UserController {
     @PostMapping("/login")
     public Result<String> login(@Pattern(regexp="^\\S{5,16}$")String username,@Pattern(regexp="^\\S{5,16}$")String password){
         User loginUser = userService.findByUserName(username);
-
         if(loginUser == null){
             return Result.error("用戶名錯誤");
         }
