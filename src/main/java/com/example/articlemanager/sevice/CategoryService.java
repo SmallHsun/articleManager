@@ -11,4 +11,6 @@ public interface CategoryService {
 
     //獲取分類列表
     List<Category> getList();
+
+    Category findById(Integer id);
 }

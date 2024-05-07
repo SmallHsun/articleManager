@@ -20,12 +20,15 @@ public class CategoryController {
         categoryService.add(category);
         return Result.success();
     }
-
-
     @GetMapping
     public Result<List<Category>> list(){
         List<Category> categoryList=categoryService.getList();
         return Result.success(categoryList);
     }
 
+    @GetMapping("/detail")
+    public Result<Category> detail(Integer id){
+        Category category=categoryService.findById(id);
+        return Result.success(category);
+    }
 }
