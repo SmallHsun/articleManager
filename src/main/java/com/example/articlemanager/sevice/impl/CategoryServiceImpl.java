@@ -23,6 +23,10 @@ public class CategoryServiceImpl implements CategoryService {
         category.setUpdateTime(LocalDateTime.now());
         category.setCreateTime(LocalDateTime.now());
         category.setCreateUserId(userId);
+        Category existingCategory  = categoryMapper.findByName(category.getCategoryName());
+        if(existingCategory!=null){
+            throw new RuntimeException("Category with name " + category.getCategoryName() + " already exists");
+        }
         categoryMapper.add(category);
     }
 
@@ -36,5 +40,20 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category findById(Integer id) {
         return categoryMapper.findById(id);
+    }
+
+    @Override
+    public void update(Category category) {
+        category.setUpdateTime(LocalDateTime.now());
+        categoryMapper.update(category);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        Category category = categoryMapper.findById(id);
+        if(category==null){
+            throw new RuntimeException("Category with id " + id + " does not exist");
+        }
+        categoryMapper.delete(id);
     }
 }

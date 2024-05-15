@@ -2,9 +2,7 @@ package com.example.articlemanager.mapper;
 
 
 import com.example.articlemanager.pojo.Category;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -19,8 +17,13 @@ public interface CategoryMapper {
     @Select("select * from category where create_userid=#{userId}")
     List<Category> getList(Integer userId);
 
+    @Select("select * from category where category_name=#{categoryName}")
+    Category findByName(String categoryName);
+    @Select("select * from category where id=#{id}")
+    Category findById(Integer id);
 
-
-    @Select("select * from category where create_userid=#{userId}")
-    Category findById(Integer userId);
+    @Update("update category set category_name=#{categoryName},category_alias=#{categoryAlias},update_time=#{updateTime} where id=#{id}")
+    void update(Category category);
+    @Delete("delete from category where id=#{id}")
+    void delete(Integer id);
 }
