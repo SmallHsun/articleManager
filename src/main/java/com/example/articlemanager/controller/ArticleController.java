@@ -47,5 +47,12 @@ public class ArticleController {
     }
 
 
+    @PutMapping
+    public Result update(@RequestBody @Validated Article article){
+        articleService.update(article);
+
+        return Result.success();
+    }
+
 
 }
