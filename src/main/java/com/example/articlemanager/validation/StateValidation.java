@@ -16,10 +16,13 @@ public class StateValidation implements ConstraintValidator<State,String> {
      */
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        if(value.equals("已發布") || value.equals("草稿")){
-            return true;
-        }else {
+        if (value == null){
             return false;
         }
+        if (value.equals("已發布") || value.equals("草稿")){
+            return true;
+        }
+        return false;
     }
 }
+
