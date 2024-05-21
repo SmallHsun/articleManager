@@ -44,8 +44,6 @@ public class UserController {
         if(loginUser == null){
             return Result.error("用戶名錯誤");
         }
-        System.out.println(BcryptUtil.encode(password));
-//        if(Md5Util.getMD5String(password).equals(loginUser.getPassword()))
         if(BcryptUtil.matches(password,loginUser.getPassword()))
         {
             Map<String,Object> claims = new HashMap<>();

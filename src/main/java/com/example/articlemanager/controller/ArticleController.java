@@ -1,27 +1,23 @@
 package com.example.articlemanager.controller;
 
 
+import com.example.articlemanager.pojo.Article;
 import com.example.articlemanager.pojo.Result;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.articlemanager.sevice.ArticleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/article")
 public class ArticleController {
 
-    @GetMapping("/list")
-    public Result<String> getArticleList() {
 
-//        try {
-//            Map<String, Object> claims = JwtUtil.parseToken(token);
-        return Result.success("所有文章");
-//
-//        }catch (Exception e){
-//            httpServletResponse.setStatus(401);
-//            return Result.error("未登錄");
-//        }
-//
-//    }
+    @Autowired
+    private ArticleService articleService;
+    @PostMapping("/add")
+    public Result add(@RequestBody Article article){
+        articleService.add(article);
+        return Result.success();
     }
+
 }
